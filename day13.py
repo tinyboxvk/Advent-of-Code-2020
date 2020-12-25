@@ -187,7 +187,7 @@ print(f'Answer = {schedules_in_service[0]*schedules_multipliers[0]-schedules_in_
 
 ##################################################
 
-from math import prod, gcd
+from math import prod, lcm
 
 print('-----------------------------------------------')
 # schedules = '7,13,x,x,59,x,31,19'.split(',')
@@ -201,13 +201,11 @@ schedules_in_service_delta = [(len(schedules) - schedules.index(schedule)) % int
 
 schedules_multipliers = []
 
-lcm = schedules_in_service[0]
-for i in schedules_in_service[1:]:
-    lcm = int(lcm * i / gcd(lcm, i))
+lcm_schedules = lcm(*schedules_in_service)
 
 total = 0
 for num in schedules_in_service:
-    m = int(lcm/num)
+    m = int(lcm_schedules/num)
     k = 1
     while k*m % num != 1:
         k += 1
