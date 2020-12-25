@@ -48,14 +48,12 @@ with open('day06input.txt') as input_file:
     lines = input_file.read().splitlines()
 lines.append('')
 
-
 answers = []
 count = 0
 for line in lines:
     if line == '':
         count += len(answers)
         answers = []
-        
     else:
         for answer in line:
             if answer not in answers:

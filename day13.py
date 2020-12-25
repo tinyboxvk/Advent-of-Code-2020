@@ -161,7 +161,7 @@ schedules_multipliers = [1] * len(schedules_in_service)
 found = 0
 index_a = 0
 index_b = 1
-while found < 5 and index_a < len(schedules_in_service)-1:
+while found < 5 and index_a < len(schedules_in_service) - 1:
     while schedules_in_service[index_a] * schedules_multipliers[index_a] < schedules_in_service[index_b] * schedules_multipliers[index_b]:
         schedules_multipliers[index_a] += 1
     timestamp_delta = (schedules_in_service[index_a] * schedules_multipliers[index_a] - (schedules_in_service_delta[index_a] - schedules_in_service_delta[index_b])) % schedules_in_service[index_b] 
@@ -192,8 +192,8 @@ from math import prod, lcm
 print('-----------------------------------------------')
 # schedules = '7,13,x,x,59,x,31,19'.split(',')
 schedules = lines[1].split(',')
-schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x' ]
-schedules_in_service_delta = [(len(schedules) - schedules.index(schedule)) % int(schedule) - 1 for schedule in schedules if schedule != 'x' ]
+schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x']
+schedules_in_service_delta = [(len(schedules) - schedules.index(schedule)) % int(schedule) - 1 for schedule in schedules if schedule != 'x']
 
 # schedules_in_service = [7, 13, 59, 31, 19]
 # schedules_in_service_delta = [0, 6, 3, 1, 0]

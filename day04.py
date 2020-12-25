@@ -69,7 +69,6 @@ for line in lines:
 # for passport in passports:
 #     print(passport)
 
-
 fields_required = ['byr','iyr','eyr','hgt','hcl','ecl','pid']
 fields_optional = 'cid'
 

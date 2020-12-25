@@ -61,19 +61,19 @@ for line in lines:
     for r in list_row:
         delta_row = row_high - row_low + 1
         if r == 'F':
-            row_high -= delta_row / 2
+            row_high -= delta_row // 2
         else:
-            row_low += delta_row / 2
+            row_low += delta_row // 2
     else:
-        row = int(row_low)
+        row = row_low
     for c in list_col:
         delta_col = col_high - col_low + 1
         if c == 'L':
-            col_high -= delta_col / 2
+            col_high -= delta_col // 2
         else:
-            col_low += delta_col / 2
+            col_low += delta_col // 2
     else:
-        col = int(col_low)
+        col = col_low
     seat_id = row * 8 + col
     list_seat_id.append(seat_id)
     if seat_id_highest < seat_id:
@@ -97,3 +97,4 @@ list_seat_id.sort()
 for seat_id in list_seat_id:
     if (seat_id + 1) not in list_seat_id and (seat_id + 2) in list_seat_id:
         print(f'ID of my seat: {seat_id+1}')
+        break

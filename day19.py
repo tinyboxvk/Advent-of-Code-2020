@@ -92,7 +92,6 @@ def build_rules(rules_old, key, rule_dict):
         rules_new = rules_old
     return rules_new
 
-
 index_sep = lines.index('')
 rule_lines = lines[:index_sep]
 messages = lines[index_sep+1:]

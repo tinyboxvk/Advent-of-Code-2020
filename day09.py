@@ -49,7 +49,7 @@
 # The first step of attacking the weakness in the XMAS data is to find the first number in the list (after the preamble) which is not the sum of two of the 25 numbers before it. What is the first number that does not have this property?
 
 
-import itertools
+from itertools import combinations
 
 lines = []
 with open('day09input.txt') as input_file:
@@ -64,7 +64,7 @@ invalid_number = 0
 for line in lines[25:]:
     num = int(line)
     flag_found = False
-    for numbers in itertools.combinations(list_25_numbers,2):
+    for numbers in combinations(list_25_numbers,2):
         if sum(numbers) == num:
             flag_found = True
     if not flag_found:
@@ -112,7 +112,7 @@ for line in lines[25:]:
 lines_num = [int(line) for line in lines]
 
 for i in range(len(lines_num)):
-    sum_bunch = 0
     for j in range(len(lines_num) - i):
         if sum(lines_num[i:j]) == invalid_number:
             print(f'Encryption weakness: {min(lines_num[i:j])+max(lines_num[i:j])}')
+            break

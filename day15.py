@@ -145,7 +145,7 @@ while index < 30000001:
             numbers_counts_dict[number_this] = 1
         else:
             numbers_counts_dict[number_this] = 2
-        numbers_dict[number_last] = index-1
+        numbers_dict[number_last] = index - 1
         numbers_spoken_list.append(number_this)
         if number_this not in numbers_dict:
             numbers_dict[number_this] = index

@@ -73,9 +73,9 @@ for line in lines:
         x, y = move(action, value, x, y)
     elif action in ['L', 'R']:
         if action == 'L':
-            direction_index = int(direction_index - value / 90) % 4
+            direction_index = (direction_index - value // 90) % 4
         else:
-            direction_index = int(direction_index + value / 90) % 4
+            direction_index = (direction_index + value // 90) % 4
     elif action == 'F':
         x, y = move(direction_list[direction_index], value, x, y)
     else:
@@ -142,7 +142,7 @@ def move_wp(direction, value, x_wp, y_wp):
     return x_wp, y_wp
 
 def rotate_wp(direction, value, x_wp, y_wp):
-    value = int(value / 90) % 4
+    value = (value // 90) % 4
     if direction == 'L':
         value = -value
         value += 4

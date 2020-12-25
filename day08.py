@@ -79,7 +79,6 @@ while True:
     elif op == 'nop':
         index += 1
 
-
 print(f'{accumulator=}')
 
 
@@ -122,7 +121,6 @@ print(f'{accumulator=}')
 # Fix the program so that it terminates normally by changing exactly one jmp (to nop) or nop (to jmp). What is the value of the accumulator after the program terminates?
 
 from copy import deepcopy
-
 
 len_ins = len(lines)
 list_tried_index = [-1]

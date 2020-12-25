@@ -134,7 +134,7 @@ def eval_new_2(math_string_list):
     return int(num_1)
 
 def eval_alt_2(math_string):
-    print(math_string)
+    # print(math_string)
     while '(' in math_string:
         math_string_list = math_string.split(' ')
         # print(f'Operating on {math_string} (Length: {len(math_string_list)})')
@@ -158,10 +158,11 @@ sum_weird_math_2 = 0
 # lines = ['5 * 7 + 2 + 7 + (4 + 7 * 4 * 6)']
 
 for line in lines:
-    print(result_weird_math := eval_alt_2(line))
+    result_weird_math = eval_alt_2(line)
+    # print(result_weird_math := eval_alt_2(line))
     sum_weird_math_2 += result_weird_math
     # print(f'Sum: {sum_weird_math_2}')
     # print(f'{sum_weird_math_2}')
-    print('---------------------------------')
+    # print('---------------------------------')
 
 print(f'Sum: {sum_weird_math_2}')
