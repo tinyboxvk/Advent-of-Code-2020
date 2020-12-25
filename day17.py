@@ -197,14 +197,13 @@ for _ in range(6):
         else:
             if neighbour_active_count == 3:
                 points_active_next.append(point)
-    points_to_test = []
+    points_to_test = deque()
     for point in points_active_next:
         list_immediate_neighbours = find_immediate_neighbours(point)
         for point_neighbour in list_immediate_neighbours:
-            if point_neighbour not in points_to_test:
-                points_to_test.append(point_neighbour)
-        if point not in points_to_test:
-            points_to_test.append(point)
+            points_to_test.append(point_neighbour)
+        points_to_test.append(point)
+    points_to_test = set(points_to_test)
     points_active = set(points_active_next)
     # for z in [-2, -1, 0, 1, 2]:
     #     for y in [-2, -1, 0, 1, 2, 3, 4, 5]:
@@ -511,10 +510,9 @@ for index_y, line in enumerate(lines):
             if (index_x, index_y, index_z, index_s) not in points_to_test:
                 points_to_test.append((index_x, index_y, index_z, index_s))
 
-
 for i in range(6):
     print(f'Running cycle {i+1}! We have {len(points_to_test)} points to test...')
-    points_active_next = deepcopy(list(points_active))
+    points_active_next = deepcopy(deque(points_active))
     for point in points_to_test:
         list_immediate_neighbours = find_immediate_neighbours_2(point)
         neighbour_active_count = 0
@@ -527,7 +525,7 @@ for i in range(6):
         else:
             if neighbour_active_count == 3:
                 points_active_next.append(point)
-    points_to_test = deque([])
+    points_to_test = deque()
     if i != 5:
         for point in points_active_next:
             points_to_test.extend(find_immediate_neighbours_2(point))
