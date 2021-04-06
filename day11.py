@@ -150,9 +150,9 @@ while flag_changed:
 
 count_occupied = 0
 for row in range(1, num_row+1):
-        for col in range(1, num_col+1):
-            if lines[row][col] == '#':
-                count_occupied += 1
+    for col in range(1, num_col+1):
+        if lines[row][col] == '#':
+            count_occupied += 1
 
 print(f'{count_occupied=}')
 
