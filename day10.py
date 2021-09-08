@@ -84,14 +84,13 @@
 # Find a chain that uses all of your adapters to connect the charging outlet to your device's built-in adapter and count the joltage differences between the charging outlet, the adapters, and your device. What is the number of 1-jolt differences multiplied by the number of 3-jolt differences?
 
 
-lines = []
+from math import prod
+
 with open('day10input.txt') as input_file:
     lines = input_file.read().splitlines()
 
 lines = [0] + [int(num) for num in lines]
-
 lines.sort()
-
 lines = lines + [lines[-1] + 3]
 
 count_diff_1 = 0
@@ -111,7 +110,8 @@ for index, num in enumerate(lines[:-1]):
 # print(f'{count_diff_1=}')
 # print(f'{count_diff_2=}')
 # print(f'{count_diff_3=}')
-print(f'Result: {count_diff_1*count_diff_3}') 
+
+print(f'Result: {count_diff_1*count_diff_3}')
 
 
 # --- Part Two ---
@@ -170,14 +170,12 @@ print(f'Result: {count_diff_1*count_diff_3}')
 # What is the total number of distinct ways you can arrange the adapters to connect the charging outlet to your device?
 
 
-from math import prod
-
 list_diff = [1]
-
 index = 0
 index_f = 0
 index_t = 0
 segment = []
+
 while index < len(lines) - 1:
     if lines[index] + 3 == lines[index+1]:
         index_t = index

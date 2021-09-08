@@ -148,7 +148,6 @@
 from copy import deepcopy
 from collections import deque
 
-lines = []
 with open('day17input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -161,12 +160,14 @@ with open('day17input.txt') as input_file:
 cal_list = [(a, b, c) for a in (-1, 0, 1) for b in (-1, 0, 1) for c in (-1, 0, 1)]
 cal_list.remove((0, 0, 0))
 
+
 def find_immediate_neighbours(point):
     return [(point[0]+cal[0], point[1]+cal[1], point[2]+cal[2]) for cal in cal_list]
 
 # test_point = (1,1,1)
 # print(find_immediate_neighbours(test_point))
 # print()
+
 
 points_active = []
 points_to_test = []
@@ -469,6 +470,7 @@ print(f'Active cubes: {len(points_active)}')
 #
 # Starting with your given initial configuration, simulate six cycles in a 4-dimensional space. How many cubes are left in the active state after the sixth cycle?
 
+
 # lines = [
 #     '.#.',
 #     '..#',
@@ -486,18 +488,21 @@ print(f'Active cubes: {len(points_active)}')
 #     list_immediate_neighbours.remove(point)
 #     return list_immediate_neighbours
 
-print('------------------------')
+print('-----------------')
 
 cal_list_2 = [(a, b, c, d) for a in (-1, 0, 1) for b in (-1, 0, 1) for c in (-1, 0, 1) for d in (-1, 0, 1)]
 cal_list_2.remove((0, 0, 0, 0))
 
+
 def find_immediate_neighbours_2(point):
     return [(point[0]+cal[0], point[1]+cal[1], point[2]+cal[2], point[3]+cal[3]) for cal in cal_list_2]
+
 
 points_active = []
 points_to_test = []
 index_z = 0
 index_s = 0
+
 for index_y, line in enumerate(lines):
     for index_x, c in enumerate(line):
         if c == '#':

@@ -93,7 +93,6 @@
 
 from copy import deepcopy
 
-lines = []
 with open('day11input.txt') as input_file:
     lines = ['.' + line + '.' for line in input_file.read().splitlines()]
 
@@ -111,12 +110,12 @@ with open('day11input.txt') as input_file:
 # ]
 
 lines = ['.' * (len(lines[0]))] + lines + ['.' * (len(lines[0]))]
-lines = [[char for char in line ] for line in lines]
-# print(lines)
-flag_changed = True
+lines = [[char for char in line] for line in lines]
 
+flag_changed = True
 num_col = len(lines[0]) - 2
 num_row = len(lines) - 2
+
 
 def look_around(lines_in, row, col):
     count_occupied = 0
@@ -130,13 +129,14 @@ def look_around(lines_in, row, col):
                 count_occupied += 1
     return count_occupied
 
+
 while flag_changed:
     flag_changed = False
     lines_next = deepcopy(lines)
     for row in range(1, num_row+1):
         for col in range(1, num_col+1):
             if lines[row][col] == '#':
-                if look_around(lines, row, col) >= 4: 
+                if look_around(lines, row, col) >= 4:
                     lines_next[row][col] = 'L'
                     flag_changed = True
             elif lines[row][col] == 'L':
@@ -154,7 +154,7 @@ for row in range(1, num_row+1):
         if lines[row][col] == '#':
             count_occupied += 1
 
-print(f'{count_occupied=}')
+print(f'Occupied: {count_occupied}')
 
 
 # --- Part Two ---
@@ -275,7 +275,6 @@ print(f'{count_occupied=}')
 # Given the new visibility method and the rule change for occupied seats becoming empty, once equilibrium is reached, how many seats end up occupied?
 
 
-lines = []
 with open('day11input.txt') as input_file:
     lines = ['.' + line + '.' for line in input_file.read().splitlines()]
 
@@ -293,12 +292,12 @@ with open('day11input.txt') as input_file:
 # ]
 
 lines = ['.' * (len(lines[0]))] + lines + ['.' * (len(lines[0]))]
-lines = [[char for char in line ] for line in lines]
+lines = [[char for char in line] for line in lines]
 
 flag_changed = True
-
 num_col = len(lines[0]) - 2
 num_row = len(lines) - 2
+
 
 def look_around_part2(lines_in, row, col):
     count_occupied = 0
@@ -325,13 +324,14 @@ def look_around_part2(lines_in, row, col):
                         break
     return count_occupied
 
+
 while flag_changed:
     flag_changed = False
     lines_next = deepcopy(lines)
     for row in range(1, num_row+1):
         for col in range(1, num_col+1):
             if lines[row][col] == '#':
-                if look_around_part2(lines, row, col) >= 5: 
+                if look_around_part2(lines, row, col) >= 5:
                     lines_next[row][col] = 'L'
                     flag_changed = True
             elif lines[row][col] == 'L':
@@ -345,8 +345,8 @@ while flag_changed:
 
 count_occupied = 0
 for row in range(1, num_row+1):
-        for col in range(1, num_col+1):
-            if lines[row][col] == '#':
-                count_occupied += 1
+    for col in range(1, num_col+1):
+        if lines[row][col] == '#':
+            count_occupied += 1
 
-print(f'{count_occupied=}')
+print(f'Occupied: {count_occupied}')

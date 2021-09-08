@@ -54,7 +54,9 @@
 #
 # Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
 
-lines = []
+
+from math import prod
+
 with open('day03input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -64,7 +66,6 @@ inc_x = 3
 inc_y = 1
 index_x = 0
 index_y = 0
-
 num_tree = 0
 
 while index_y + inc_y < length_y:
@@ -75,7 +76,8 @@ while index_y + inc_y < length_y:
     if lines[index_y][index_x] == '#':
         num_tree += 1
 
-print(f'{num_tree=}')
+print(f'Number of trees: {num_tree}')
+
 
 # --- Part Two ---
 #
@@ -93,11 +95,11 @@ print(f'{num_tree=}')
 #
 # What do you get if you multiply together the number of trees encountered on each of the listed slopes?
 
-from math import prod
 
 list_inc_x = [1, 3, 5, 7, 1]
 list_inc_y = [1, 1, 1, 1, 2]
 list_num_tree = []
+
 for index, inc_x in enumerate(list_inc_x):
     inc_y = list_inc_y[index]
     num_tree = 0
@@ -114,4 +116,4 @@ for index, inc_x in enumerate(list_inc_x):
 
 answer = prod(list_num_tree)
 
-print(f'{answer=}')
+print(f'Answer: {answer}')

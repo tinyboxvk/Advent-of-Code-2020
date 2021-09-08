@@ -20,7 +20,7 @@
 #
 # How many passwords are valid according to their policies?
 
-lines = []
+
 with open('day02input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -34,7 +34,8 @@ for line in lines:
     if times >= int(times_min) and times <= int(times_max):
         count_valid += 1
 
-print(f'{count_valid=}')
+print(f'Valid: {count_valid}')
+
 
 # --- Part Two ---
 #
@@ -52,6 +53,7 @@ print(f'{count_valid=}')
 #
 # How many passwords are valid according to the new interpretation of the policies?
 
+
 count_valid = 0
 
 for line in lines:
@@ -62,4 +64,4 @@ for line in lines:
     if times == 1:
         count_valid += 1
 
-print(f'{count_valid=}')
+print(f'Valid: {count_valid}')

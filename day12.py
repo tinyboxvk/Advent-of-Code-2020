@@ -37,7 +37,6 @@
 # Figure out where the navigation instructions lead. What is the Manhattan distance between that location and the ship's starting position?
 
 
-lines = []
 with open('day12input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -55,6 +54,7 @@ direction_index = 1
 x = 0
 y = 0
 
+
 def move(direction, value, x, y):
     if direction == 'N':
         y += value
@@ -65,6 +65,7 @@ def move(direction, value, x, y):
     elif direction == 'W':
         x -= value
     return x, y
+
 
 for line in lines:
     action, value = line[0], int(line[1:])
@@ -130,6 +131,7 @@ y = 0
 x_wp = 10
 y_wp = 1
 
+
 def move_wp(direction, value, x_wp, y_wp):
     if direction == 'N':
         y_wp += value
@@ -140,6 +142,7 @@ def move_wp(direction, value, x_wp, y_wp):
     elif direction == 'W':
         x_wp -= value
     return x_wp, y_wp
+
 
 def rotate_wp(direction, value, x_wp, y_wp):
     value = (value // 90) % 4
@@ -154,6 +157,7 @@ def rotate_wp(direction, value, x_wp, y_wp):
     elif value == 3:
         x_wp, y_wp = -y_wp, x_wp
     return x_wp, y_wp
+
 
 for line in lines:
     action, value = line[0], int(line[1:])

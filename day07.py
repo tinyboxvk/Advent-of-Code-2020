@@ -32,7 +32,6 @@
 # How many bag colors can eventually contain at least one shiny gold bag? (The list of rules is quite long; make sure you get all of it.)
 
 
-lines = []
 with open('day07input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -48,6 +47,7 @@ with open('day07input.txt') as input_file:
 #     'dotted black bags contain no other bags.'
 # ]
 
+
 def does_it_contain(bag, bag_mine):
     if bag_mine in rules[bag].keys():
         # print(f'{bag_mine} in {rules[bag].keys()}')
@@ -60,13 +60,15 @@ def does_it_contain(bag, bag_mine):
         else:
             return False
 
+
 rules = {}
 
 for line in lines:
     bag_relation = line.split(' bags contain ')
     bag_outer = bag_relation[0]
     bag_inner_list = bag_relation[1].split(', ')
-    bag_inner_list_cleaned = [(int(bag_inner.split(' ')[0]), ' '.join(bag_inner.split(' ')[1:-1])) if bag_inner.split(' ')[0] != 'no' else (0, 'no other') for bag_inner in bag_inner_list]
+    bag_inner_list_cleaned = [(int(bag_inner.split(' ')[0]), ' '.join(bag_inner.split(' ')[1:-1]))
+                              if bag_inner.split(' ')[0] != 'no' else (0, 'no other') for bag_inner in bag_inner_list]
     bag_inner_dict = {}
     for bag_inner in bag_inner_list_cleaned:
         bag_inner_dict[bag_inner[1]] = bag_inner[0]
@@ -80,8 +82,8 @@ for bag in rules.keys():
     if does_it_contain(bag, 'shiny gold'):
         shiny_gold_count += 1
         shiny_gold_list.append(bag)
-        
-print(f'{len(shiny_gold_list)}')
+
+print(f'Answer: {len(shiny_gold_list)}')
 
 
 # --- Part Two ---
@@ -125,10 +127,11 @@ def bags_it_contains(bag):
             count += bags_it_contains(bag_contained) * rules[bag][bag_contained]
         return count
 
+
 shiny_gold_contain_count = 0
 
 for bag in rules['shiny gold'].keys():
     shiny_gold_contain_count += rules['shiny gold'][bag]
     shiny_gold_contain_count += bags_it_contains(bag) * rules['shiny gold'][bag]
-        
-print(f'{shiny_gold_contain_count=}')
+
+print(f'Answer: {shiny_gold_contain_count}')

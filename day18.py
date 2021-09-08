@@ -36,7 +36,6 @@
 # Before you can help with the homework, you need to understand it yourself. Evaluate the expression on each line of the homework; what is the sum of the resulting values?
 
 
-lines = []
 with open('day18input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -47,6 +46,7 @@ with open('day18input.txt') as input_file:
 #     '5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))',
 #     '((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2'
 # ]
+
 
 def eval_new(math_string_list):
     # print(math_string_list)
@@ -62,6 +62,7 @@ def eval_new(math_string_list):
     # print(f'Returning {num_1}')
     return str(num_1)
 
+
 def eval_alt(math_string):
     while '(' in math_string:
         math_string_list = math_string.split(' ')
@@ -76,9 +77,11 @@ def eval_alt(math_string):
             elif ')' in math_string_list[index]:
                 index_r = index
         # print(f'Replacing {" ".join(math_string_list[index_l:index_r+1])} in {math_string}')
-        math_string = math_string.replace('(' + math_string_list[index_l].replace('(', '') + ' ' + ' '.join(math_string_list[index_l+1:index_r]) + ' ' + math_string_list[index_r].replace(')', '') + ')', eval_new(math_string_list[index_l:index_r+1]))
+        math_string = math_string.replace('(' + math_string_list[index_l].replace('(', '') + ' ' + ' '.join(
+            math_string_list[index_l+1:index_r]) + ' ' + math_string_list[index_r].replace(')', '') + ')', eval_new(math_string_list[index_l:index_r+1]))
         # print(f'math_string is now {math_string}')
     return eval_new(math_string.split(' '))
+
 
 sum_weird_math = 0
 
@@ -88,7 +91,7 @@ for line in lines:
     # print('---------------------------------')
 
 print(f'Sum: {sum_weird_math}')
-print('---------------------------------')
+
 
 # --- Part Two ---
 #
@@ -126,12 +129,14 @@ def eval_new_2(math_string_list):
         while '+' != math_string_list[index]:
             index += 1
         # print(f'Replacing {" ".join(math_string_list[index-1:index+2])} in {math_string} with {eval("".join(math_string_list[index-1:index+2]))}')
-        math_string_list = math_string_list[:index-1] + [str(eval(''.join(math_string_list[index-1:index+2])))] + math_string_list[index+2:]
+        math_string_list = math_string_list[:index-1] + \
+            [str(eval(''.join(math_string_list[index-1:index+2])))] + math_string_list[index+2:]
     num_1 = math_string_list[0]
     for index in range(1, len(math_string_list)-1, 2):
         num_1 = eval(str(num_1)+''.join(math_string_list[index:index+2]))
     # print(f'Returning {num_1}')
     return int(num_1)
+
 
 def eval_alt_2(math_string):
     # print(math_string)
@@ -148,10 +153,12 @@ def eval_alt_2(math_string):
             elif ')' in math_string_list[index]:
                 index_r = index
         # print(f'Replacing {" ".join(math_string_list[index_l:index_r+1])} in {math_string}')
-        math_string = math_string.replace('(' + math_string_list[index_l].replace('(', '') + ' ' + ' '.join(math_string_list[index_l+1:index_r]) + ' ' + math_string_list[index_r].replace(')', '') + ')', str(eval_new_2(math_string_list[index_l:index_r+1])))
+        math_string = math_string.replace('(' + math_string_list[index_l].replace('(', '') + ' ' + ' '.join(
+            math_string_list[index_l+1:index_r]) + ' ' + math_string_list[index_r].replace(')', '') + ')', str(eval_new_2(math_string_list[index_l:index_r+1])))
         # print(f'math_string is now {math_string}')
         # print(math_string)
     return eval_new_2(math_string.split(' '))
+
 
 sum_weird_math_2 = 0
 

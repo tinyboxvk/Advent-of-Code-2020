@@ -16,42 +16,42 @@
 # For example, suppose your cup labeling were 389125467. If the crab were to do merely 10 moves, the following changes would occur:
 #
 # -- move 1 --
-# cups: (3) 8  9  1  2  5  4  6  7 
+# cups: (3) 8  9  1  2  5  4  6  7
 # pick up: 8, 9, 1
 # destination: 2
 #
 # -- move 2 --
-# cups:  3 (2) 8  9  1  5  4  6  7 
+# cups:  3 (2) 8  9  1  5  4  6  7
 # pick up: 8, 9, 1
 # destination: 7
 #
 # -- move 3 --
-# cups:  3  2 (5) 4  6  7  8  9  1 
+# cups:  3  2 (5) 4  6  7  8  9  1
 # pick up: 4, 6, 7
 # destination: 3
 #
 # -- move 4 --
-# cups:  7  2  5 (8) 9  1  3  4  6 
+# cups:  7  2  5 (8) 9  1  3  4  6
 # pick up: 9, 1, 3
 # destination: 7
 #
 # -- move 5 --
-# cups:  3  2  5  8 (4) 6  7  9  1 
+# cups:  3  2  5  8 (4) 6  7  9  1
 # pick up: 6, 7, 9
 # destination: 3
 #
 # -- move 6 --
-# cups:  9  2  5  8  4 (1) 3  6  7 
+# cups:  9  2  5  8  4 (1) 3  6  7
 # pick up: 3, 6, 7
 # destination: 9
 #
 # -- move 7 --
-# cups:  7  2  5  8  4  1 (9) 3  6 
+# cups:  7  2  5  8  4  1 (9) 3  6
 # pick up: 3, 6, 7
 # destination: 8
 #
 # -- move 8 --
-# cups:  8  3  6  7  4  1  9 (2) 5 
+# cups:  8  3  6  7  4  1  9 (2) 5
 # pick up: 5, 8, 3
 # destination: 1
 #
@@ -61,12 +61,12 @@
 # destination: 5
 #
 # -- move 10 --
-# cups: (5) 7  4  1  8  3  9  2  6 
+# cups: (5) 7  4  1  8  3  9  2  6
 # pick up: 7, 4, 1
 # destination: 3
 #
 # -- final --
-# cups:  5 (8) 3  7  4  1  9  2  6 
+# cups:  5 (8) 3  7  4  1  9  2  6
 #
 # In the above example, the cups' values are the labels as they appear moving clockwise around the circle; the current cup is marked with ( ).
 #
@@ -86,7 +86,7 @@ cycle_index_current_cup = cycle(range(9))
 
 for i in range(100):
     # if i % 10 == 9:
-    #     print(f'-- move {i+1} --')
+    #     print(f'-- Move {i+1} --')
     # print(f'cups: {", ".join(str(cup) for cup in cups)}')
     index_current_cup = next(cycle_index_current_cup)
     current_cup = cups[index_current_cup]
@@ -119,7 +119,7 @@ for i in range(100):
 
 index_delta = cups.index(1)
 cups.rotate(-index_delta-1)
-print(''.join(str(num) for num in cups)[:-1])
+print(f'Labels: {"".join(str(num) for num in cups)[:-1]}')
 print('------------------')
 
 
@@ -140,11 +140,13 @@ print('------------------')
 
 puzzle_input_list = [int(num) for num in puzzle_input]
 
+
 class Cup:
     def __init__(self, value):
         self.value = value
-        self.prev  = None
-        self.next  = None
+        self.prev = None
+        self.next = None
+
 
 def build_doubly_linked_list(total_len):
     initial_values = chain(puzzle_input_list, range(len(puzzle_input_list) + 1, total_len + 1))
@@ -161,6 +163,7 @@ def build_doubly_linked_list(total_len):
     cur.next = first
     return first, cups
 
+
 total_cups = 1000000
 total_moves = 10000000
 first, cups = build_doubly_linked_list(total_cups)
@@ -168,10 +171,10 @@ current_cup = first
 
 for i in range(total_moves):
     if i % 1000000 == 999999:
-        print(f'-- move {i+1} --')
-    first_cup  = current_cup.next
-    mid_cup    = first_cup.next
-    last_cup   = mid_cup.next
+        print(f'-- Move {i+1} --')
+    first_cup = current_cup.next
+    mid_cup = first_cup.next
+    last_cup = mid_cup.next
     cups_picked_up = (first_cup.value, mid_cup.value, last_cup.value)
     current_cup.next = last_cup.next
     current_cup.next.prev = current_cup

@@ -165,11 +165,14 @@
 #
 # Assemble the tiles into an image. What do you get if you multiply together the IDs of the four corner tiles?
 
+import os
+import re
+from time import sleep
 from math import sqrt, prod
 
-lines = []
 with open('day20input.txt') as input_file:
     lines = input_file.read().splitlines()
+
 
 def transform_tile(tile, rot, flip):
     if flip:
@@ -184,6 +187,7 @@ def transform_tile(tile, rot, flip):
         rot -= 1
     return tile
 
+
 def find_borders(tile):
     border_t = ''.join(tile[0])
     border_b = ''.join(tile[-1])
@@ -191,13 +195,16 @@ def find_borders(tile):
     # border_l = ''.join([line[0] for line in tile])[::-1]
     border_l = ''.join([line[0] for line in tile])
     border_r = ''.join([line[-1] for line in tile])
-    border_list = [border_t, border_b, border_l, border_r] + [border[::-1] for border in [border_t, border_b, border_l, border_r]]
+    border_list = [border_t, border_b, border_l, border_r] + [border[::-1]
+                                                              for border in [border_t, border_b, border_l, border_r]]
     return border_list
-    
+
+
 def print_tile_single(tile):
     for row in tile:
         print(''.join(row))
     print()
+
 
 def find_top_left_id(tiles, tile_dict):
     for tile_id, tile_index in tile_dict.items():
@@ -218,6 +225,7 @@ def find_top_left_id(tiles, tile_dict):
         borders = find_borders(tiles[tile_id_tl])
     border_to_match_r, border_to_match_b = borders[3], borders[1]
     return tiles, tile_id, tile_id_tl, border_to_match_r, border_to_match_b
+
 
 def match_border_left_or_top(tile_list, tile_id, border_to_match_r, border_to_match_b, found_count, len_row):
     matched = False
@@ -254,9 +262,11 @@ def match_border_left_or_top(tile_list, tile_id, border_to_match_r, border_to_ma
             border_to_match_r = borders[3]
     return tile_list, tile_id, border_to_match_r, border_to_match_b, matched
 
+
 def print_image(image):
     for line in image:
         print(line)
+
 
 def build_image(tile_list, tile_dict, tile_found_index_list):
     actual_image = []
@@ -267,6 +277,7 @@ def build_image(tile_list, tile_dict, tile_found_index_list):
                 image_line += ''.join(tile_list[tile_dict[tile_found_index_list[row * len_row + col]]][line][1:-1])
             actual_image.append(image_line)
     return actual_image
+
 
 def build_image_1(tile_list, tile_dict, tile_found_index_list):
     actual_image = []
@@ -280,8 +291,6 @@ def build_image_1(tile_list, tile_dict, tile_found_index_list):
         actual_image.append(' ')
     return actual_image
 
-import os
-from time import sleep
 
 num_tiles = (len(lines)+1) // 12
 tile_dict = {}
@@ -298,16 +307,15 @@ for num in range(num_tiles):
 
 tile_list, tile_id, tile_tl_id, border_to_match_r, border_to_match_b = find_top_left_id(tile_list, tile_dict)
 tile_remaining_index_list.remove(tile_tl_id)
-
 len_row = int(sqrt(num_tiles))
 found_count = 1
-
-corners = []
 tile_found_index_list = [tile_id]
+
 while len(tile_remaining_index_list) != 0:
     for tile_id, tile_index in tile_dict.items():
         if tile_index in tile_remaining_index_list:
-            tile_list, tile_id, border_to_match_r, border_to_match_b, matched = match_border_left_or_top(tile_list, tile_id, border_to_match_r, border_to_match_b, found_count, len_row)
+            tile_list, tile_id, border_to_match_r, border_to_match_b, matched = match_border_left_or_top(
+                tile_list, tile_id, border_to_match_r, border_to_match_b, found_count, len_row)
             if matched:
                 tile_remaining_index_list.remove(tile_dict[tile_id])
                 tile_found_index_list.append(tile_id)
@@ -317,14 +325,15 @@ while len(tile_remaining_index_list) != 0:
                 print_image(actual_image)
                 sleep(0.1)
 
-corners.append(int(tile_found_index_list[0]))
-corners.append(int(tile_found_index_list[len_row-1]))
-corners.append(int(tile_found_index_list[-len_row]))
-corners.append(int(tile_found_index_list[-1]))
+corners = [
+    int(tile_found_index_list[0]),
+    int(tile_found_index_list[len_row-1]),
+    int(tile_found_index_list[-len_row]),
+    int(tile_found_index_list[-1])
+]
 
-# print(corners)
 # print(f'Prod of IDs: {prod(corners)}')
-# print('--------------------')
+
 
 # --- Part Two ---
 #
@@ -390,9 +399,9 @@ corners.append(int(tile_found_index_list[-1]))
 #
 # Now, you're ready to search for sea monsters! Because your image is monochrome, a sea monster will look like this:
 #
-#                   # 
+#                   #
 # #    ##    ##    ###
-#  #  #  #  #  #  #   
+#  #  #  #  #  #  #
 #
 # When looking for this pattern in the image, the spaces can be anything; only the # need to match. Also, you might need to rotate or flip your image before it's oriented correctly to find sea monsters. In the above image, after flipping and rotating it to the appropriate orientation, there are two sea monsters (marked with O):
 #
@@ -425,7 +434,6 @@ corners.append(int(tile_found_index_list[-1]))
 #
 # How many # are not part of a sea monster?
 
-import re
 
 sleep(1)
 actual_image = build_image(tile_list, tile_dict, tile_found_index_list)
@@ -458,6 +466,7 @@ count_hash = 0
 for line in actual_image:
     count_hash += line.count("#")
 
+
 def find_monsters(re_objects, len_grid, len_monster_pattern):
     points = []
     count_monster = 0
@@ -471,6 +480,7 @@ def find_monsters(re_objects, len_grid, len_monster_pattern):
                 points.append((row_start, col_start))
     return points, count_monster
 
+
 def reveal_monsters(points, image, monster_pattern):
     image = [[char for char in image_line] for image_line in image]
     for point in points:
@@ -480,6 +490,7 @@ def reveal_monsters(points, image, monster_pattern):
                     image[line_index+point[0]][index_char+point[1]] = 'O'
     image = [''.join(image_line) for image_line in image]
     return image
+
 
 len_grid = len(actual_image[0])
 points = []

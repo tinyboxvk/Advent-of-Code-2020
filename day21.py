@@ -21,9 +21,10 @@
 #
 # Determine which ingredients cannot possibly contain any of the allergens in your list. How many times do any of those ingredients appear?
 
+
+from operator import itemgetter
 from collections import defaultdict
 
-lines = []
 with open('day21input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -55,7 +56,8 @@ for line in lines:
         for ingr, alle in dict_ingre_aller.items():
             if allergen in alle:
                 if ingr not in ingredients:
-                    dict_ingre_aller[ingr] = [allergen_new for allergen_new in dict_ingre_aller[ingr] if allergen_new != allergen]
+                    dict_ingre_aller[ingr] = [
+                        allergen_new for allergen_new in dict_ingre_aller[ingr] if allergen_new != allergen]
 
 # print(dict_ingre_aller)
 
@@ -64,7 +66,7 @@ list_impossble_ingredients = []
 for ingr, alle in dict_ingre_aller.items():
     if alle == []:
         list_impossble_ingredients.append(ingr)
-        
+
 # print(list_impossble_ingredients)
 
 for impos_ingr in list_impossble_ingredients:
@@ -81,8 +83,9 @@ for line in lines:
         if impos_ingr in ingredients:
             count_occurrence_impossble_ingredients += 1
 
-print(count_occurrence_impossble_ingredients)
+print(f'Appearances: {count_occurrence_impossble_ingredients}')
 # print(dict_ingre_aller)
+
 
 # --- Part Two ---
 #
@@ -98,7 +101,6 @@ print(count_occurrence_impossble_ingredients)
 #
 # Time to stock your raft with supplies. What is your canonical dangerous ingredient list?
 
-from operator import itemgetter
 
 list_confirmed_pair = []
 
@@ -110,7 +112,8 @@ while len(dict_ingre_aller) != 0:
             list_to_remove.append(ingr)
             for i, a in dict_ingre_aller.items():
                 if alle[0] in a:
-                    dict_ingre_aller[i] = [allergen_new for allergen_new in dict_ingre_aller[i] if allergen_new != alle[0]]
+                    dict_ingre_aller[i] = [
+                        allergen_new for allergen_new in dict_ingre_aller[i] if allergen_new != alle[0]]
     for to_remove in list_to_remove:
         dict_ingre_aller.pop(to_remove)
 

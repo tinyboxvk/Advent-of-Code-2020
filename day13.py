@@ -47,7 +47,8 @@
 # What is the ID of the earliest bus you can take to the airport multiplied by the number of minutes you'll need to wait for that bus?
 
 
-lines = []
+from math import prod, lcm
+
 with open('day13input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -57,9 +58,8 @@ with open('day13input.txt') as input_file:
 # ]
 
 timestamp_depart_me = int(lines[0])
-
 schedules = lines[1].split(',')
-schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x' ]
+schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x']
 timestamps_depart_earliest = []
 
 # print(timestamp_depart_me)
@@ -72,7 +72,6 @@ for schedule in schedules_in_service:
     timestamps_depart_earliest.append(timestamp_depart_earliest)
 
 bus_id = schedules_in_service[timestamps_depart_earliest.index(min(timestamps_depart_earliest))]
-
 minutes_wait = min(timestamps_depart_earliest) - timestamp_depart_me
 
 print(f'Answer = {bus_id * minutes_wait}')
@@ -146,8 +145,8 @@ print(f'Answer = {bus_id * minutes_wait}')
 
 schedules = '7,13,x,x,59,x,31,19'.split(',')
 # schedules = lines[1].split(',')
-schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x' ][::-1]
-schedules_in_service_delta = [schedules.index(schedule) for schedule in schedules if schedule != 'x' ][::-1]
+schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x'][::-1]
+schedules_in_service_delta = [schedules.index(schedule) for schedule in schedules if schedule != 'x'][::-1]
 schedules_multipliers = [1] * len(schedules_in_service)
 
 # print(schedules_in_service)
@@ -161,10 +160,12 @@ schedules_multipliers = [1] * len(schedules_in_service)
 found = 0
 index_a = 0
 index_b = 1
+
 while found < 5 and index_a < len(schedules_in_service) - 1:
     while schedules_in_service[index_a] * schedules_multipliers[index_a] < schedules_in_service[index_b] * schedules_multipliers[index_b]:
         schedules_multipliers[index_a] += 1
-    timestamp_delta = (schedules_in_service[index_a] * schedules_multipliers[index_a] - (schedules_in_service_delta[index_a] - schedules_in_service_delta[index_b])) % schedules_in_service[index_b] 
+    timestamp_delta = (schedules_in_service[index_a] * schedules_multipliers[index_a] - (
+        schedules_in_service_delta[index_a] - schedules_in_service_delta[index_b])) % schedules_in_service[index_b]
     if timestamp_delta == 0:
         found += 1
         index_b += 1
@@ -183,27 +184,23 @@ while found < 5 and index_a < len(schedules_in_service) - 1:
     # print(found)
     # print(schedules_multipliers)
 
-print(f'Answer = {schedules_in_service[0]*schedules_multipliers[0]-schedules_in_service_delta[0]}')
+print(f'Answer (example) = {schedules_in_service[0]*schedules_multipliers[0]-schedules_in_service_delta[0]}')
 
 ##################################################
 
-from math import prod, lcm
-
-print('-----------------------------------------------')
 # schedules = '7,13,x,x,59,x,31,19'.split(',')
 schedules = lines[1].split(',')
 schedules_in_service = [int(schedule) for schedule in schedules if schedule != 'x']
-schedules_in_service_delta = [(len(schedules) - schedules.index(schedule)) % int(schedule) - 1 for schedule in schedules if schedule != 'x']
+schedules_in_service_delta = [(len(schedules) - schedules.index(schedule)) %
+                              int(schedule) - 1 for schedule in schedules if schedule != 'x']
 
 # schedules_in_service = [7, 13, 59, 31, 19]
 # schedules_in_service_delta = [0, 6, 3, 1, 0]
 # print(schedules_in_service_delta)
 
 schedules_multipliers = []
-
 lcm_schedules = lcm(*schedules_in_service)
 
-total = 0
 for num in schedules_in_service:
     m = int(lcm_schedules/num)
     k = 1
@@ -211,9 +208,10 @@ for num in schedules_in_service:
         k += 1
     schedules_multipliers.append(k*m)
 
-print(f'{schedules_multipliers}')
+# print(f'{schedules_multipliers}')
 
 num_very_big = 0
+
 for index, num in enumerate(schedules_in_service_delta):
     num_very_big += num * schedules_multipliers[index]
 

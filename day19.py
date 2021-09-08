@@ -54,7 +54,6 @@
 # How many messages completely match rule 0?
 
 
-lines = []
 with open('day19input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -72,6 +71,7 @@ with open('day19input.txt') as input_file:
 #     'aaabbb',
 #     'aaaabbb'
 # ]
+
 
 def build_rules(rules_old, key, rule_dict):
     if rule_dict[key] == 'a' or rule_dict[key] == 'b':
@@ -91,6 +91,7 @@ def build_rules(rules_old, key, rule_dict):
             rules_old = build_rules(rules_old, value, rule_dict)
         rules_new = rules_old
     return rules_new
+
 
 index_sep = lines.index('')
 rule_lines = lines[:index_sep]
@@ -118,7 +119,7 @@ for message in messages:
         count_match_completely += 1
 
 print(f'Completely matched: {count_match_completely}')
-print('----------------------')
+
 
 # --- Part Two ---
 #
@@ -271,7 +272,8 @@ rules_8l = build_rules(rules, '8l', rule_dict)
 rules_11r = build_rules(rules, '11r', rule_dict)
 len_rule_8l = len(rules_8l[0])
 len_rule_11r = len(rules_11r[0])
-rules_real_min = [rule_8l1 + rule_8l2 + rule_11r for rule_8l1 in rules_8l for rule_8l2 in rules_8l for rule_11r in rules_11r]
+rules_real_min = [rule_8l1 + rule_8l2 +
+                  rule_11r for rule_8l1 in rules_8l for rule_8l2 in rules_8l for rule_11r in rules_11r]
 count_match_completely = 0
 
 # print('===============')
@@ -315,3 +317,5 @@ for index, message in enumerate(messages):
 print(f'Completely matched: {count_match_completely}')
 
 # A better solution using regex: https://github.com/rjbatista/AoC/blob/master/aoc/event2020/day19/solve.py
+# '(?:\1)+'
+# '((?:\1)(?1)?(?:\2))'

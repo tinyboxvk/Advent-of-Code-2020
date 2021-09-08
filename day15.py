@@ -41,6 +41,8 @@
 
 # Your puzzle input is 15,12,0,14,3,1.
 
+from collections import deque
+
 numbers = [15, 12, 0, 14, 3, 1]
 numbers_dict = {
     15: 1,
@@ -48,7 +50,7 @@ numbers_dict = {
     0: 3,
     14: 4,
     3: 5,
-    1:6
+    1: 6
 }
 number_last = 1
 index = 7
@@ -96,8 +98,6 @@ print(f'2020th number spoken: {numbers_spoken_list[-1]}')
 # Given your starting numbers, what will be the 30000000th number spoken?
 
 
-from collections import deque
-
 numbers = [15, 12, 0, 14, 3, 1]
 numbers_dict = {
     15: 1,
@@ -105,7 +105,7 @@ numbers_dict = {
     0: 3,
     14: 4,
     3: 5,
-    1:6
+    1: 6
 }
 number_last = 1
 index = 7

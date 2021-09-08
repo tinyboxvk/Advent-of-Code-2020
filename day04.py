@@ -46,7 +46,6 @@
 # Count the number of valid passports - those that have all required fields. Treat cid as optional. In your batch file, how many passports are valid?
 
 
-lines = []
 with open('day04input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -66,10 +65,7 @@ for line in lines:
     else:
         fields += line.split(' ')
 
-# for passport in passports:
-#     print(passport)
-
-fields_required = ['byr','iyr','eyr','hgt','hcl','ecl','pid']
+fields_required = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
 fields_optional = 'cid'
 
 num_passport_valid = 0
@@ -78,7 +74,8 @@ for passport in passports:
     if all(field_required in passport.keys() for field_required in fields_required):
         num_passport_valid += 1
 
-print(f'{num_passport_valid=}')
+print(f'Valid: {num_passport_valid}')
+
 
 # --- Part Two ---
 #
@@ -152,8 +149,8 @@ print(f'{num_passport_valid=}')
 
 
 num_passport_valid_real = 0
-
 # fields_required = ['byr','iyr','iyr','hgt','hcl','ecl','pid']
+
 
 def verify(passport):
     # byr (Birth Year) - four digits; at least 1920 and at most 2002.
@@ -182,7 +179,7 @@ def verify(passport):
     # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
     if passport['hcl'][0] != '#' or len(passport['hcl']) != 7:
         return False
-    elif not all(char in ['1', '2', '3', '4' ,'5' ,'6' ,'7' ,'8' ,'9' ,'0', 'a', 'b', 'c', 'd', 'e', 'f'] for char in passport['hcl'][1:]):
+    elif not all(char in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f'] for char in passport['hcl'][1:]):
         return False
     # ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
     if passport['ecl'] not in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
@@ -193,9 +190,10 @@ def verify(passport):
     # cid (Country ID) - ignored, missing or not.
     return True
 
+
 for passport in passports:
     if all(field_required in passport.keys() for field_required in fields_required):
         if verify(passport):
             num_passport_valid_real += 1
 
-print(f'{num_passport_valid_real=}')
+print(f'Valid: {num_passport_valid_real}')

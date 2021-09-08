@@ -42,7 +42,6 @@
 # Execute the initialization program. What is the sum of all values left in memory after it completes?
 
 
-lines = []
 with open('day14input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -55,6 +54,7 @@ with open('day14input.txt') as input_file:
 
 memory = [0] * 100000
 
+
 def masking(bin_list, mask):
     for index, m in enumerate(mask):
         if m == 0:
@@ -65,9 +65,11 @@ def masking(bin_list, mask):
             bin_list[index] = str(bin_list[index])
     return bin_list
 
+
 def write_to_mem(data, mem_add):
     memory[mem_add] = int(str(''.join(data)), 2)
     # print(memory[mem_add])
+
 
 for line in lines:
     line = line.split(' ')
@@ -83,7 +85,7 @@ for line in lines:
         # print(data_to_write)
         write_to_mem(data_to_write, mem_add)
 
-print(sum(memory))
+print(f'Sum: {sum(memory)}')
 
 
 # --- Part Two ---
@@ -149,6 +151,7 @@ print(sum(memory))
 
 memory = {}
 
+
 def masking_2(mem_add, mask):
     # print(mask)
     mem_add_bin = str(bin(mem_add))[2:]
@@ -172,10 +175,12 @@ def masking_2(mem_add, mask):
             mem_add_bin_list_post = mem_add_bin_list_post_temp
     return mem_add_bin_list_post
 
+
 def write_to_mem_2(value, mem_add):
     mem_add = int(mem_add[1:], 2)
     # print(mem_add, value)
     memory[mem_add] = value
+
 
 for line in lines:
     line = line.split(' ')
@@ -193,4 +198,5 @@ for line in lines:
             write_to_mem_2(value, mem_add)
 
 # print(memory)
-print(sum(memory.values()))
+
+print(f'Sum: {sum(memory.values())}')

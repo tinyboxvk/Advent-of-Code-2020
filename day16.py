@@ -41,7 +41,9 @@
 # Consider the validity of the nearby tickets you scanned. What is your ticket scanning error rate?
 
 
-lines = []
+from math import prod
+from copy import deepcopy
+
 with open('day16input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -96,6 +98,7 @@ for line in lines_rules:
     rule = line.split(': ')
     rules[rule[0]] = rule[1].split(' or ')
 
+
 def check_valid(ticket, rules):
     valid = False
     sum_invalid_field = 0
@@ -114,6 +117,7 @@ def check_valid(ticket, rules):
     else:
         valid = True
     return valid, sum_invalid_field
+
 
 sum_invalid_total = 0
 list_nearby_tickets_valid = []
@@ -153,9 +157,6 @@ print(f'Ticket scanning error rate: {sum_invalid_total}')
 # Once you work out which field is which, look for the six fields on your ticket that start with the word departure. What do you get if you multiply those six values together?
 
 
-from copy import deepcopy
-from math import prod
-
 def check_field(list_field_numbers, rules, list_rule_names_avail):
     list_rule_names = deepcopy(list_rule_names_avail)
     for field in list_field_numbers:
@@ -174,6 +175,7 @@ def check_field(list_field_numbers, rules, list_rule_names_avail):
         return list_rule_names[0]
     else:
         return None
+
 
 list_rule_names = [str(rule_name) for rule_name in rules.keys()]
 list_departure_index = []

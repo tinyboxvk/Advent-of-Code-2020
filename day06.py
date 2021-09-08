@@ -43,7 +43,8 @@
 # For each group, count the number of questions to which anyone answered "yes". What is the sum of those counts?
 
 
-lines = []
+import string
+
 with open('day06input.txt') as input_file:
     lines = input_file.read().splitlines()
 lines.append('')
@@ -59,7 +60,8 @@ for line in lines:
             if answer not in answers:
                 answers.append(answer)
 
-print(f'{count=}')
+print(f'Sum: {count}')
+
 
 # --- Part Two ---
 #
@@ -97,7 +99,6 @@ print(f'{count=}')
 #
 # For each group, count the number of questions to which everyone answered "yes". What is the sum of those counts?
 
-import string
 
 answers = []
 count = 0
@@ -110,4 +111,4 @@ for line in lines:
     else:
         answers.append(line)
 
-print(f'{count=}')
+print(f'Sum: {count}')

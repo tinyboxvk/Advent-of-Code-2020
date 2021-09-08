@@ -41,13 +41,12 @@
 # As a sanity check, look through your list of boarding passes. What is the highest seat ID on a boarding pass?
 
 
-lines = []
 with open('day05input.txt') as input_file:
     lines = input_file.read().splitlines()
 
+# lines = ['BFFFBBFRRR', 'FFFBBBFRRR', 'BBFFBBFRLL']
 seat_id_highest = 0
 list_seat_id = []
-# lines = ['BFFFBBFRRR', 'FFFBBBFRRR', 'BBFFBBFRLL']
 
 for line in lines:
     list_row = line[:7]
@@ -78,7 +77,6 @@ for line in lines:
     list_seat_id.append(seat_id)
     if seat_id_highest < seat_id:
         seat_id_highest = seat_id
-    # print(f'{seat_id}')
 
 print(f'Highest seat ID: {seat_id_highest}')
 
@@ -92,6 +90,7 @@ print(f'Highest seat ID: {seat_id_highest}')
 # Your seat wasn't at the very front or back, though; the seats with IDs +1 and -1 from yours will be in your list.
 #
 # What is the ID of your seat?
+
 
 list_seat_id.sort()
 for seat_id in list_seat_id:

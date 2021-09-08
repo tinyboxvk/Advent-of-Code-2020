@@ -45,7 +45,8 @@
 # Run your copy of the boot code. Immediately before any instruction is executed a second time, what value is in the accumulator?
 
 
-lines = []
+from copy import deepcopy
+
 with open('day08input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -79,7 +80,7 @@ while True:
     elif op == 'nop':
         index += 1
 
-print(f'{accumulator=}')
+print(f'Value: {accumulator}')
 
 
 # --- Part Two ---
@@ -120,7 +121,6 @@ print(f'{accumulator=}')
 #
 # Fix the program so that it terminates normally by changing exactly one jmp (to nop) or nop (to jmp). What is the value of the accumulator after the program terminates?
 
-from copy import deepcopy
 
 len_ins = len(lines)
 list_tried_index = [-1]
@@ -156,4 +156,4 @@ while not flag_fixed:
     else:
         flag_fixed = True
 
-print(f'{accumulator=}')
+print(f'Value: {accumulator}')

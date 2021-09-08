@@ -86,7 +86,7 @@
 #
 #
 # == Post-game results ==
-# Player 1's deck: 
+# Player 1's deck:
 # Player 2's deck: 3, 2, 10, 6, 8, 5, 9, 4, 7, 1
 #
 # Once the game ends, you can calculate the winning player's score. The bottom card in their deck is worth the value of the card multiplied by 1, the second-from-the-bottom card is worth the value of the card multiplied by 2, and so on. With 10 cards, the top card is worth the value on the card multiplied by 10. In this example, the winning player's score is:
@@ -107,9 +107,10 @@
 #
 # Play the small crab in a game of Combat using the two decks you just dealt. What is the winning player's score?
 
+
+from copy import deepcopy
 from collections import deque
 
-lines = []
 with open('day22input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -140,13 +141,16 @@ with open('day22input.txt') as input_file:
 #     '14'
 # ]
 
+
 def print_decks(deck_1, deck_2):
     print(f"Player 1's deck: {', '.join([str(num) for num in deck_1])}")
     print(f"Player 2's deck: {', '.join([str(num) for num in deck_2])}")
 
+
 def print_cards(card_1, card_2):
     print(f"Player 1 plays: {card_1}")
     print(f"Player 2 plays: {card_2}")
+
 
 def calculate_score(deck):
     score = 0
@@ -154,6 +158,7 @@ def calculate_score(deck):
     for index, num in enumerate(deck):
         score += num * (index + 1)
     return score
+
 
 def play(deck_1, deck_2):
     round_index = 0
@@ -179,14 +184,16 @@ def play(deck_1, deck_2):
     winner_game = 1 if len(deck_2) == 0 else 2
     return winner_game
 
+
 def print_result(deck_1, deck_2, winner):
     print('== Post-game results ==')
-    print_decks(deck_1, deck_2)
-    print()
+    # print_decks(deck_1, deck_2)
+    # print()
     if winner == 1:
         print(f"Player 1's score: {calculate_score(deck_1)}")
     else:
         print(f"Player 2's score: {calculate_score(deck_2)}")
+
 
 index_sep = lines.index('')
 deck_1 = deque([int(num) for num in lines[1:index_sep]])
@@ -194,6 +201,7 @@ deck_2 = deque([int(num) for num in lines[index_sep+2:]])
 winner = play(deck_1, deck_2)
 print_result(deck_1, deck_2, winner)
 print('-----------------------')
+
 
 # --- Part Two ---
 #
@@ -457,7 +465,7 @@ print('-----------------------')
 #
 #
 # == Post-game results ==
-# Player 1's deck: 
+# Player 1's deck:
 # Player 2's deck: 7, 5, 6, 2, 4, 1, 10, 8, 9, 3
 #
 # After the game, the winning player's score is calculated from the cards they have in their original deck using the same rules as regular Combat. In the above game, the winning player's score is 291.
@@ -465,9 +473,8 @@ print('-----------------------')
 # Defend your honor as Raft Captain by playing the small crab in a game of Recursive Combat using the same two decks as before. What is the winning player's score?
 
 
-from copy import deepcopy
-
 game_counter = 0
+
 
 def play_2(deck_1_orig, deck_2_orig, game_id):
     global game_counter
@@ -505,7 +512,8 @@ def play_2(deck_1_orig, deck_2_orig, game_id):
             # print('Playing a sub-game to determine the winner...')
             # print()
             game_counter_current = game_counter
-            winner_round, card_winner, card_loser = play_2(deque([deck_1[i] for i in range(card_1)]), deque([deck_2[i] for i in range(card_2)]), game_counter)
+            winner_round, card_winner, card_loser = play_2(deque([deck_1[i] for i in range(card_1)]), deque([
+                                                           deck_2[i] for i in range(card_2)]), game_counter)
             # print(f'The winner of game {game_counter_current+1} is player {winner_round}!')
             # print()
             # print(f'...anyway, back to game {game_id}.')
@@ -532,11 +540,12 @@ def play_2(deck_1_orig, deck_2_orig, game_id):
         card_winner, card_loser = (card_1, card_2) if len(deck_2) == 0 else (card_2, card_1)
         winner_game = 1 if len(deck_2) == 0 else 2
     if game_id == 1:
-        print(f'The winner of game 1 is player {winner_game}!')
-        print()
+        # print(f'The winner of game 1 is player {winner_game}!')
+        # print()
         return winner_game, deck_1, deck_2
     else:
         return winner_game, card_winner, card_loser
+
 
 deck_1 = deque([int(num) for num in lines[1:index_sep]])
 deck_2 = deque([int(num) for num in lines[index_sep+2:]])

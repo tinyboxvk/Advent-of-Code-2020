@@ -40,7 +40,6 @@
 # What encryption key is the handshake trying to establish?
 
 
-lines = []
 with open('day25input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -73,7 +72,7 @@ sub_card = pub_door
 sub_door = pub_card
 value_card = 1
 value_door = 1
-Match = False
+match = False
 
 for _ in range(loop_card):
     value_card *= sub_card
@@ -82,9 +81,9 @@ for _ in range(loop_door):
     value_door *= sub_door
     value_door %= 20201227
 if value_card == value_door:
-    Match = True
+    match = True
 
-if Match:
+if match:
     print(f'Encryption key: {value_card}')
 else:
     print(f'Encryption key does not match! Card: {value_card} Door: {value_door}')

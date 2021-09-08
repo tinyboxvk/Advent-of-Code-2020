@@ -25,10 +25,10 @@
 #
 # Of course, your expense report is much larger. Find the two entries that sum to 2020; what do you get if you multiply them together?
 
+
 from itertools import combinations
 from math import prod
 
-lines = []
 with open('day01input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -39,7 +39,8 @@ for numbers in combinations(lines, 2):
     if sum(numbers) == 2020:
         answer = prod(numbers)
 
-print(f'{answer=}')
+print(f'Answer: {answer}')
+
 
 # --- Part Two ---
 #
@@ -49,8 +50,9 @@ print(f'{answer=}')
 #
 # In your expense report, what is the product of the three entries that sum to 2020?
 
+
 for numbers in combinations(lines, 3):
     if sum(numbers) == 2020:
         answer = prod(numbers)
 
-print(f'{answer=}')
+print(f'Answer: {answer}')

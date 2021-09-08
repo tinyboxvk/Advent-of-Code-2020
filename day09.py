@@ -51,20 +51,17 @@
 
 from itertools import combinations
 
-lines = []
 with open('day09input.txt') as input_file:
     lines = input_file.read().splitlines()
 
 list_25_numbers = [int(num) for num in lines[:25]]
-
-# print(list_25_numbers)
 
 invalid_number = 0
 
 for line in lines[25:]:
     num = int(line)
     flag_found = False
-    for numbers in combinations(list_25_numbers,2):
+    for numbers in combinations(list_25_numbers, 2):
         if sum(numbers) == num:
             flag_found = True
     if not flag_found:

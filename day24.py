@@ -42,9 +42,9 @@
 # Go through the renovation crew's list and determine which tiles they need to flip. After all of the instructions have been followed, how many tiles are left with the black side up?
 
 
+from copy import deepcopy
 from collections import deque
 
-lines = []
 with open('day24input.txt') as input_file:
     lines = input_file.read().splitlines()
 
@@ -71,6 +71,7 @@ with open('day24input.txt') as input_file:
 #     'wseweeenwnesenwwwswnew'
 # ]
 
+
 def move_to_tile(direction, current_pos):
     if direction == 'e':
         current_pos = (current_pos[0] + 2, current_pos[1])
@@ -85,6 +86,7 @@ def move_to_tile(direction, current_pos):
     elif direction == 'sw':
         current_pos = (current_pos[0] - 1, current_pos[1] - 1)
     return current_pos
+
 
 tiles_flipped = deque()
 
@@ -143,12 +145,13 @@ print('---------')
 #
 # How many tiles will be black after 100 days?
 
-from copy import deepcopy
 
 cal_list = [(1, 1), (2, 0), (1, -1), (-1, -1), (-2, 0), (-1, 1)]
 
+
 def find_immediate_neighbours(tile):
     return [(tile[0]+cal[0], tile[1]+cal[1]) for cal in cal_list]
+
 
 tiles_to_test = []
 
